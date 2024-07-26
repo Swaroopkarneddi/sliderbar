@@ -1,0 +1,26 @@
+// src/components/Slider.scss
+.slider {
+    position: relative;
+    /* Add slider base styles */
+
+    &.Size_24 {
+        /* Handle size 24 styles */
+    }
+
+    &.Size_32 {
+        /* Handle size 32 styles */
+    }
+
+    .handle {
+        position: absolute;
+        /* Add handle styles */
+
+        &:hover {
+            /* Add hover state styles */
+        }
+
+        &.active {
+            /* Add active state styles */
+        }
+    }
+}
