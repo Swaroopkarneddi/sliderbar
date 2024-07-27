@@ -1,4 +1,3 @@
-// src/stories/Slider.stories.tsx
 import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import Slider, { SliderProps } from "../components/Slider";

@@ -1,26 +1,61 @@
-// src/components/Slider.scss
 .slider {
     position: relative;
-    /* Add slider base styles */
+    width: 80%;
+    /* Increased width */
+    max-width: 600px;
+    /* Increased max width */
+    margin: 20px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    user-select: none;
 
-    &.Size_24 {
-        /* Handle size 24 styles */
+    &-track {
+        position: relative;
+        height: 6px;
+        background: #e0e0e0;
+        border-radius: 3px;
     }
 
-    &.Size_32 {
-        /* Handle size 32 styles */
-    }
-
-    .handle {
+    &-handle {
         position: absolute;
-        /* Add handle styles */
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background: #ff5722;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background 0.3s;
 
-        &:hover {
-            /* Add hover state styles */
+        &.Size_24 {
+            width: 24px;
+            height: 24px;
+        }
+
+        &.Size_32 {
+            width: 32px;
+            height: 32px;
+        }
+
+        &.hover {
+            background: #ff7043;
         }
 
         &.active {
-            /* Add active state styles */
+            background: #d84315;
+        }
+    }
+
+    &-value {
+        margin-top: 10px;
+        font-size: 14px;
+        text-align: center;
+        color: #666;
+    }
+
+    &.dragging {
+        .slider-handle {
+            background: #d84315;
         }
     }
 }
