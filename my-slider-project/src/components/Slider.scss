@@ -12,8 +12,19 @@
     &-track {
         position: relative;
         height: 6px;
-        background: #e0e0e0;
+        background: #ffffff; /* Default track color */
         border-radius: 3px;
+        border: 2px solid #000; /* Black outline */
+    }
+
+    &-track-fill {
+        position: absolute;
+        height: 100%;
+        background: #4caf50; /* Green fill color */
+        border-radius: 3px;
+        top: 0;
+        left: 0;
+        z-index: 1;
     }
 
     &-steps {
@@ -38,10 +49,24 @@
         position: absolute;
         top: 50%;
         transform: translate(-50%, -50%);
-        background: #ff5722;
-        border-radius: 50%;
         cursor: pointer;
-        transition: background 0.3s;
+        transition: all 0.3s ease;
+        border-radius: 50%;
+        border: 4px solid #4caf50; /* Default green border */
+        background: #ffffff; /* White inner color */
+
+        &:before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 50%;
+            height: 50%;
+            background: #4caf50; /* Inner circle green */
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
 
         &.Size_24 {
             width: 24px;
@@ -53,12 +78,39 @@
             height: 32px;
         }
 
-        &.hover {
-            background: #ff7043;
+        &.circle {
+            // No hover or focus effects for circle
+            &:before {
+                background: #4caf50; /* Inner circle green */
+            }
+        }
+
+        &.circle-hover {
+            &:hover {
+                &:before {
+                    background: #4caf50; /* Inner circle green on hover */
+                }
+            }
+        }
+
+        &.circle-focus {
+            &:focus {
+                border-color: #4caf50; /* Green border on focus */
+                outline: none;
+
+                &:before {
+                    background: #4caf50; /* Fill the inner circle with green */
+                    transform: translate(-50%, -50%) scale(1); /* Ensure no scaling effect */
+                }
+            }
         }
 
         &.active {
-            background: #d84315;
+            border-color: #2e7d32; /* Dark green border when active */
+
+            &:before {
+                background: #2e7d32; /* Dark green inner circle when active */
+            }
         }
     }
 
@@ -71,7 +123,11 @@
 
     &.dragging {
         .slider-handle {
-            background: #d84315;
+            border-color: #2e7d32; /* Dark green border when dragging */
+
+            &:before {
+                background: #2e7d32; /* Dark green inner circle when dragging */
+            }
         }
     }
 }

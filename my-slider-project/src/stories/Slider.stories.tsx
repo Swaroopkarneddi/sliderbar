@@ -26,11 +26,15 @@ export default {
       control: "radio",
       options: ["Size_24", "Size_32"],
     },
+    handleType: {
+      control: "radio",
+      options: ["circle", "circle-hover", "circle-focus"], // Ensure these match HandleType
+    },
     onChange: { action: "changed" },
   },
   parameters: {
     controls: {
-      include: ["type", "subtype", "numberOfSteps", "handleSize"],
+      include: ["type", "subtype", "numberOfSteps", "handleSize", "handleType"],
     },
   },
 } as Meta<typeof Slider>;
@@ -44,14 +48,16 @@ Default.args = {
   type: "continuous",
   subtype: "single",
   handleSize: "Size_24",
+  handleType: "circle",
 };
 
 export const Discreet = Template.bind({});
 Discreet.args = {
   type: "discreet",
   subtype: "single",
-  numberOfSteps: 11, // 0, 10, 20, ..., 100
+  numberOfSteps: 11,
   handleSize: "Size_24",
+  handleType: "circle",
 };
 
 export const Range = Template.bind({});
@@ -59,4 +65,5 @@ Range.args = {
   type: "continuous",
   subtype: "range",
   handleSize: "Size_24",
+  handleType: "circle",
 };

@@ -4,20 +4,23 @@ import "./Slider.scss";
 export type SliderType = "continuous" | "discreet";
 export type SliderSubtype = "single" | "range";
 export type HandleSize = "Size_24" | "Size_32";
+export type HandleType = "circle" | "circle-hover" | "circle-focus";
 
 export interface SliderProps {
   type: SliderType;
   subtype: SliderSubtype;
-  numberOfSteps?: number; // Add this line
+  numberOfSteps?: number;
   handleSize: HandleSize;
+  handleType: HandleType;
   onChange: (value: number | [number, number]) => void;
 }
 
 const Slider: React.FC<SliderProps> = ({
   type,
   subtype,
-  numberOfSteps = 11, // Default to 11 steps for discreet sliders
+  numberOfSteps = 11,
   handleSize,
+  handleType,
   onChange,
 }) => {
   const [value, setValue] = useState<number | [number, number]>(
@@ -28,6 +31,7 @@ const Slider: React.FC<SliderProps> = ({
   const sliderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Reset value when subtype changes
     setValue(subtype === "single" ? 0 : [0, 100]);
   }, [subtype]);
 
@@ -101,27 +105,53 @@ const Slider: React.FC<SliderProps> = ({
     return <div className="slider-steps">{steps}</div>;
   };
 
+  const trackFillStyle = () => {
+    if (subtype === "single") {
+      return {
+        width: `${value}%`,
+      };
+    } else if (subtype === "range" && Array.isArray(value)) {
+      const [min, max] = value;
+      return {
+        width: `${max - min}%`,
+        left: `${min}%`,
+      };
+    }
+    return {};
+  };
+
   return (
     <div
       className={`slider ${handleSize} ${isDragging ? "dragging" : ""}`}
       ref={sliderRef}
     >
-      <div className="slider-track">{renderSteps()}</div>
+      <div className="slider-track">
+        <div className="slider-track-fill" style={trackFillStyle()} />
+        {renderSteps()}
+      </div>
       <div
-        className={`slider-handle ${handleSize} ${isDragging ? "active" : "hover"}`}
+        className={`slider-handle ${handleSize} ${handleType} ${
+          isDragging ? "active" : ""
+        }`}
         onMouseDown={() => handleMouseDown(0)}
         style={{
           left: `${Array.isArray(value) ? value[0] : value}%`,
         }}
-      ></div>
+        tabIndex={0}
+        aria-label="Slider handle"
+      />
       {subtype === "range" && (
         <div
-          className={`slider-handle ${handleSize} ${isDragging ? "active" : "hover"}`}
+          className={`slider-handle ${handleSize} ${handleType} ${
+            isDragging ? "active" : ""
+          }`}
           onMouseDown={() => handleMouseDown(1)}
           style={{
             left: `${(value as [number, number])[1]}%`,
           }}
-        ></div>
+          tabIndex={0}
+          aria-label="Slider handle"
+        />
       )}
       <div className="slider-value">
         Slider Value:{" "}
