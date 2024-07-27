@@ -28,6 +28,11 @@ export default {
     },
     onChange: { action: "changed" },
   },
+  parameters: {
+    controls: {
+      include: ["type", "subtype", "numberOfSteps", "handleSize"],
+    },
+  },
 } as Meta<typeof Slider>;
 
 const Template: StoryFn<SliderProps> = (args: SliderProps) => (
@@ -38,5 +43,20 @@ export const Default = Template.bind({});
 Default.args = {
   type: "continuous",
   subtype: "single",
+  handleSize: "Size_24",
+};
+
+export const Discreet = Template.bind({});
+Discreet.args = {
+  type: "discreet",
+  subtype: "single",
+  numberOfSteps: 11, // 0, 10, 20, ..., 100
+  handleSize: "Size_24",
+};
+
+export const Range = Template.bind({});
+Range.args = {
+  type: "continuous",
+  subtype: "range",
   handleSize: "Size_24",
 };
